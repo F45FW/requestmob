@@ -44,9 +44,9 @@ module.exports = class HMRWsRelay100Cients60Seconds extends Actor {
     }
 
     await this.doForDuration(DURATION, 1000, () => {
-      try {
-        let idx = 0;
-        for (let i of range) {
+      let idx = 0;
+      for (let i of range) {
+        try {
           let msg = this.wsClients[idx].createMessage({
             "bdy": {
               "ts": "00:00:01.0050",
@@ -56,9 +56,9 @@ module.exports = class HMRWsRelay100Cients60Seconds extends Actor {
           this.logStat(actorName, 'request', msg.mid);
           this.wsClients[idx].sendMessage(JSON.stringify(msg));
           idx++;
+        } catch (err) {
+          this.logStat(actorName, 'error', msg.mid, err);
         }
-      } catch (err) {
-        this.logStat(actorName, 'error', msg.mid);
       }
     });
   }

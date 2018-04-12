@@ -39,7 +39,7 @@ module.exports = class HydraHealth extends Actor {
       });
       this.logStat(actorName, 'process', requestID);
     } catch (e) {
-      this.logStat(actorName, 'error', requestID);
+      this.logStat(actorName, 'error', requestID, e);
     }
   }
 }

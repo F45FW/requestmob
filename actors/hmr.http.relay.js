@@ -42,7 +42,7 @@ module.exports = class HMRHttpRelay extends Actor {
       result = {
         error: e
       };
-      this.logStat(actorName, 'error', requestID);
+      this.logStat(actorName, 'error', requestID, e);
     }
   }
 }

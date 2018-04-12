@@ -46,7 +46,7 @@ module.exports = class HMRWsRelay extends Actor {
       this.logStat(actorName, 'request', msg.mid);
       wsClient.sendMessage(JSON.stringify(msg));
     } catch (e) {
-      this.logStat(actorName, 'error', msg.mid);
+      this.logStat(actorName, 'error', msg.mid, e);
     }
   }
 }

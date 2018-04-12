@@ -86,7 +86,7 @@ class Program {
           WORKER_ID: i
         });
         worker.on('message', (message) => {
-          stats.log(message.actorName, message.requestID, message.type);
+          stats.log(message.actorName, message.requestID, message.type, message.error);
         });
       }
 

@@ -1,6 +1,8 @@
 'use strict';
 
 const uuid = require('uuid');
+const Utils = require('../lib/utils');
+let utils = new Utils();
 
 module.exports = class Actor {
   /**
@@ -36,9 +38,15 @@ module.exports = class Actor {
    * @description log a stat
    * @param {string} actorName - actor name
    * @param {string} type - log entry type
+   * @param {object} error - optional error object. If used, action must be set to 'error'
+   * @return {undefined}
    */
-  logStat(actorName, type, requestID) {
-    process.send({ actorName, type, requestID });
+  logStat(actorName, type, requestID, error) {
+    let errorObj = error;
+    if (errorObj) {
+      errorObj = (error.stack || error);
+    }
+    process.send({ actorName, type, requestID, error: utils.safeJSONStringify(errorObj) });
   }
 
   /**
