@@ -1,7 +1,7 @@
 'use strict';
 
 const uuid = require('uuid');
-const Utils = require('../lib/utils');
+const Utils = require('./lib/utils');
 let utils = new Utils();
 
 module.exports = class Actor {

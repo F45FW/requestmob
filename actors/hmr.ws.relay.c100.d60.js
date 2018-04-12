@@ -1,6 +1,6 @@
 'use strict';
 
-const Actor = require('./actor');
+const Actor = require('../actor');
 const WSClient = require('../lib/wsClient');
 
 const CLIENT_COUNT = 100;

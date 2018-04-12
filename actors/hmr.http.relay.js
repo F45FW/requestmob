@@ -1,6 +1,6 @@
 'use strict';
 
-const Actor = require('./actor');
+const Actor = require('../actor');
 const ServerRequest = require('../lib/server-request');
 
 /**
