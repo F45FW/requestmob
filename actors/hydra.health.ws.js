@@ -3,15 +3,10 @@
 const Actor = require('../actor');
 const WSClient = require('../lib/wsClient');
 
-const CLIENT_COUNT = 25;
-const DURATION = 120 * 1000;
+const CLIENT_COUNT = 100;
+const DURATION = 180 * 1000;
 
-/**
-* @name HMRWsRelay100Cients60Seconds
-* @summary Call HMRWsRelay using 100 clients for 60 seconds
-* @return {undefined}
-*/
-module.exports = class HMRWsRelay100Cients60Seconds extends Actor {
+module.exports = class HydraHealthWS extends Actor {
   /**
   * @name constructor
   * @description class contructor
@@ -31,6 +26,7 @@ module.exports = class HMRWsRelay100Cients60Seconds extends Actor {
   */
   async execute(actorName) {
     let messageHandler = (msg) => {
+      //console.log('recieving message', msg.mid);
       if (msg.rmid) { // only track messages with rmid's
         this.logStat(actorName, 'process', msg.rmid);
       }
@@ -42,21 +38,20 @@ module.exports = class HMRWsRelay100Cients60Seconds extends Actor {
       this.wsClients.push(client);
       await client.open(this.config.wsTarget, messageHandler);
     }
-
-    await(5000); // catchup
-
+    console.log('Awaiting connections');
+    await(5000);
+    console.log('Starting Test');
     await this.doForDuration(250000, 1000, () => {
       let idx = 0;
       for (let i of range) {
         try {
           let msg = this.wsClients[idx].createMessage({
-            "bdy": {
-              "ts": "00:00:01.0050",
-              "datum": { "rpm": "58", "torq": "18", "tp": "0.25521" }
-            }
+            "to": "hydra-router:[GET]/v1/router/health",
+            "body": {}
           });
-          //   log(actorName, requestID, action, error=null, message) {
+          // log(actorName, requestID, action, error=null, message) {
           // logStat(actorName, type, requestID, error, message) {
+          //console.log('Sending message', msg.mid);
           this.logStat(actorName, 'request', msg.mid, null, msg);
           this.wsClients[idx].sendMessage(JSON.stringify(msg));
           idx++;
@@ -66,7 +61,7 @@ module.exports = class HMRWsRelay100Cients60Seconds extends Actor {
         }
       }
     });
-
+    console.log('Fin');
     await(5000);
   }
 }

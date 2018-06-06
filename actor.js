@@ -41,12 +41,12 @@ module.exports = class Actor {
    * @param {object} error - optional error object. If used, action must be set to 'error'
    * @return {undefined}
    */
-  logStat(actorName, type, requestID, error) {
+  logStat(actorName, type, requestID, error, message) {
     let errorObj = error;
     if (errorObj) {
       errorObj = (error.stack || error);
     }
-    process.send({ actorName, type, requestID, error: utils.safeJSONStringify(errorObj) });
+    process.send({ actorName, type, requestID, error: utils.safeJSONStringify(errorObj), message });
   }
 
   /**

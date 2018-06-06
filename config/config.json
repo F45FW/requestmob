@@ -10,11 +10,27 @@
   },
   "hmr.ws.relay.c100.d60": {
     "description": "Call HMR websocket repay endpoint using 100 clients for 60 seconds",
-    "wsTarget": "ws://localhost:5353"
+    "wsTarget": "wss://loadtest.flywheelsports.com:443"
   },
   "hydra.health": {
     "description": "Call Hydra Health endpoint",
-    "host": "http://localhost",
-    "port": 5353
+    "host": "http://loadtest.flywheelsports.com"
+  },
+  "hydra.health.ws": {
+    "description": "Call Hydra Health endpoint",
+    "wsTarget": "wss://loadtest.flywheelsports.com:443"
+  },
+  "lbs.ws.testing.c13.d300": {
+    "description": "Call HMR websocket repay endpoint using 100 clients for 60 seconds",
+    "wsTarget": "wss://loadtest.flywheelsports.com:443"
+  },
+  "lbs.ws.testing.c25.d300": {
+    "description": "Call HMR websocket repay endpoint using 100 clients for 60 seconds",
+    "wsTarget": "wss://loadtest.flywheelsports.com:443"
+  },
+  "lbs.http.testing.c1.d300": {
+    "description": "Stress Hydra Router while benching leaderboard system.",
+    "host": "loadtest.flywheelsports.com",
+    "port": 80
   }
 }
